@@ -1,5 +1,5 @@
 <?php
-    $hostname="54.159.4.49";
+    $hostname="52.23.174.62";
     $username="user";
     $password="password";
     $database="AWS_Cloud";

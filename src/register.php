@@ -16,7 +16,7 @@
 
         if ($result->num_rows > 0) {
             $message = "Email già presente";
-            echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
+            header('Location: register.html');
         }else{
             $hashed_password=md5($password);
                 
@@ -24,10 +24,10 @@
             $stmt->bind_param("sssss", $nome, $cognome, $email, $hashed_password);
 
             if ($stmt->execute()) {
-                echo "<script> window.location = '../public/login.html';</script>";
+                header('Location: login.html');
             } else {
                 $message = "errore";
-                echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
+                header('Location: register.html');
             }
             $stmt->close();
             $conn->close();
@@ -35,5 +35,5 @@
         }
     else{
         $message = "Devi accettare i termini e le condizioni";
-        echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
+        header('location: register.html');
     }

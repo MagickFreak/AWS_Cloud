@@ -3,32 +3,30 @@
     require './db_connect/connect.php';
     require 'function.php';
     $email=sanitizeString(mysqli_real_escape_string($conn, $_POST["email"]));
-    $password=sanitizeString(mysqli_real_escape_string($conn, $_POST["password"]));
-
-
-    $stmt = $conn->prepare("SELECT * FROM user WHERE email LIKE ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        $message = "Email inesistente";
-        echo "<script>if(confirm('$message')){document.location.href='../public/login.html'};</script>";
+    $password =sanitizeString(mysqli_real_escape_string($conn, $_POST["password"]));
+    
+    $sql = "SELECT id, email FROM user
+    WHERE email LIKE ? AND password=md5($password);";
+    
+    $statement = $conn->prepare($sql);
+    
+    $statement->bind_param("sss", $email,$password,$email);
+    $query_response = [];
+    $statement->bind_result($query_response['id'], $query_response['email']);
+    $statement->execute();
+    
+    if ($statement->fetch()){
+      $_SESSION['user_id'] = $query_response['id'];
+      $_SESSION['email'] = $query_response['email'];
+      $response['message'] = 'Login Riuscito';
+      header('Location: home.html');
     }else{
-        $hashed_password=md5($password);
-        $stmt = $conn->prepare("SELECT * FROM user WHERE email LIKE ? AND password LIKE ?");
-        $stmt->bind_param("ss", $email, $hashed_password);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $_SESSION['user']=$username;
-            if(isset($_SESSION['user'])) {
-                $stmt->close();
-                echo "<script> window.location = '../public/home.html';</script>";
-            }
-        } else {
-            $message = "Password errata";
-            echo "<script>if(confirm('$message')){document.location.href='../public/login.html'};</script>";
-        }
+      http_response_code(400);
+      $response['message'] = 'Login Fallito';
+      header('Location: login.html');
     }
+    $statement->close();
+    
+    echo json_encode($response);
+    ?>
 ?>

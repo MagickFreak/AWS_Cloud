@@ -1,6 +1,6 @@
 <?php
     $ip="localhost";
-    $username="user";
+    $username="root";
     $password="";
     $database="aws_cloud";
 

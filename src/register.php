@@ -2,26 +2,38 @@
     require '../config/connection.php';
     require 'function.php';
 
-    $firstname=$_POST["firstname"];
-    $lastname=$_POST["lastname"];
-    $email=$_POST["email"];
-    $password=$_POST["password"];
-    $password=sanitizeString($password);
+    $firstname=sanitizeString(mysqli_real_escape_string($conn, $_POST["firstname"]));
+    $lastname=sanitizeString(mysqli_real_escape_string($conn, $_POST["lastname"]));
+    $email=sanitizeString(mysqli_real_escape_string($conn, $_POST["email"]));
+    $password=sanitizeString(mysqli_real_escape_string($conn, $_POST["password"]));
+    
+    if(isset($_POST['check'])){
 
-    $sql="SELECT * FROM user WHERE email='$email'";
-    $result=$conn->query($sql);
-    if($result->num_rows>0){
-        echo "L'utente con questa email: ".$email." è già registrato";
-    }else{
-        $password=md5($password);
-        $sql="INSERT INTO user(firstname,lastname,email,password) VALUES('$firstname','$lastname','$email','$password')";
-        if($conn->query($sql)===TRUE){
-            header('Location:login.html');
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email LIKE ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $message = "Email già presente";
+            echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
         }else{
-            echo $conn->error;
-    }
-     
-}
-$conn->close();
-?>
+            $hashed_password=md5($password);
+                
+            $stmt = $conn->prepare("INSERT INTO user (firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $nome, $cognome, $email, $hashed_password);
+
+            if ($stmt->execute()) {
+                echo "<script> window.location = '../public/login.html';</script>";
+            } else {
+                $message = "errore";
+                echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
+            }
+            $stmt->close();
+            $conn->close();
+            }
+        }
+    else{
+        $message = "Devi accettare i termini e le condizioni";
+        echo "<script>if(confirm('$message')){document.location.href='../public/register.html'};</script>";
     }

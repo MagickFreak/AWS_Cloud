@@ -135,6 +135,21 @@ transform: rotate(360deg);
 {
     height: 44px;
 }
+.check{
+    display: flex;
+    justify-content:flex-start;
+}
+.check a{
+    margin: 11px 0;
+    font-size: 0.9em;
+    color: #ff8800;
+    text-decoration: none;
+}
+.check a:hover,
+.check a:nth-child(2)
+{
+    color: #ff8800;
+}
 .links
 {
     display: flex;

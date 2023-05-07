@@ -16,7 +16,7 @@
         $password=md5($password);
         $sql="INSERT INTO user(firstname,lastname,email,password) VALUES('$firstname','$lastname','$email','$password')";
         if($conn->query($sql)===TRUE){
-            header('Location: login.html');
+            header('Location:login.html');
         }else{
             echo $conn->error;
     }

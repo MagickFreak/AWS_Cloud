@@ -18,7 +18,7 @@
         if($result->num_rows>0){
             session_start();
             $_SESSION['id']=$row['id'];
-            header('Location: home.php');
+            header('Location:home.php');
         }
         echo "Login errato";
     }

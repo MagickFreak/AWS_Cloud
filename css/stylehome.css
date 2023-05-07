@@ -17,8 +17,8 @@ body
 .box
 {
     position: relative;
-    width: 500px;
-    height: 400px;
+    width: 70%;
+    height: 1600px;
     background: #ffffff;
     border-radius: 8px;
     overflow: hidden;
@@ -29,12 +29,12 @@ body
     position: absolute;
     top: -50%;
     left: -50%;
-    width: 500px;
-    height: 420px;
+    width: 70%;
+    height: 1620px;
     background: linear-gradient(0deg,transparent,#ff8800,#ff8800);
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
-    animation-delay: -28s;
+    animation-delay: -12s;
 }
 .box::after
 {
@@ -42,12 +42,12 @@ body
     position: absolute;
     top: -50%;
     left: -50%;
-    width: 500px;
-    height: 420px;
+    width: 70%;
+    height: 1620px;
     background: linear-gradient(0deg,transparent,#ff8800,#ff8800);
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
-    animation-delay: -7s;
+    animation-delay: -3s;
 }
 @keyframes animate
 {
@@ -67,14 +67,28 @@ transform: rotate(360deg);
     border-radius: 8px;
     background: #ffffff;
     z-index: 10;
-    padding: 120px 40px;
+    padding: 20px 40px;
     display: flex;
     flex-direction: column;
 }
-.box2 h2
+.box2 h1
 {
     color: #ff8800;
     font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+.box2 h5
+{
+    color: #ff8800;
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+.box2 p
+{
+    color: #ff8800;
+    font-weight: 20;
     text-align: center;
     letter-spacing: 0.1em;
 }

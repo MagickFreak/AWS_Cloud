@@ -1,12 +1,11 @@
 <?php
-    $hostname="localhost";
+    $ip="localhost";
     $username="user";
-    $password="password";
-    $database="AWS_Cloud";
-    $port="3306";
+    $password="";
+    $database="aws_cloud";
 
     //connessione
-    $conn=new mysqli($hostname,$username,$password,$database,$port);
+    $conn=new mysqli($ip,$username,$password,$database);
     if($conn->connect_error){
         die("Connessione non riuscita: ".$conn->connect_error);
     }

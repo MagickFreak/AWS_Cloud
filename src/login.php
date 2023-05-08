@@ -10,7 +10,7 @@
     
     $stmt = $conn->prepare($sql);
     
-    $stmt->bind_param("sss", $email,$password,$email);
+    $stmt->bind_param("s", $email);
     $query_response = [];
     $stmt->bind_result($query_response['id'], $query_response['email']);
     $stmt->execute();

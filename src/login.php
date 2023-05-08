@@ -19,11 +19,11 @@
       $_SESSION['user_id'] = $query_response['id'];
       $_SESSION['email'] = $query_response['email'];
       $response['message'] = 'Login Riuscito';
-      header('Location: /aws/public/home.html');
+      header('Location: ../../home.html');
     }else{
       http_response_code(400);
       $response['message'] = 'Login Fallito';
-      header('Location: /aws/public/login.html');
+      header('Location: login.html');
     }
     $stmt->close();
     

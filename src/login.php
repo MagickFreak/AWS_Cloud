@@ -1,7 +1,7 @@
 <?php
-    session_start();
     require '../config/connection.php';
     require 'function.php';
+    session_start();
     $email=sanitizeString(mysqli_real_escape_string($conn, $_POST["email"]));
     $password =sanitizeString(mysqli_real_escape_string($conn, $_POST["password"]));
     

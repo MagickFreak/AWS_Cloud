@@ -8,14 +8,14 @@
     $sql = "SELECT id, email FROM user
     WHERE email LIKE ? AND password=md5($password);";
     
-    $statement = $conn->prepare($sql);
+    $stmt = $conn->prepare($sql);
     
-    $statement->bind_param("sss", $email,$password,$email);
+    $stmt->bind_param("sss", $email,$password,$email);
     $query_response = [];
-    $statement->bind_result($query_response['id'], $query_response['email']);
-    $statement->execute();
+    $stmt->bind_result($query_response['id'], $query_response['email']);
+    $stmt->execute();
     
-    if ($statement->fetch()){
+    if ($stmt->fetch()){
       $_SESSION['user_id'] = $query_response['id'];
       $_SESSION['email'] = $query_response['email'];
       $response['message'] = 'Login Riuscito';
@@ -25,8 +25,7 @@
       $response['message'] = 'Login Fallito';
       header('Location: login.html');
     }
-    $statement->close();
+    $stmt->close();
     
     echo json_encode($response);
-    ?>
 ?>

@@ -37,3 +37,5 @@
         $message = "Devi accettare i termini e le condizioni";
         header('location: register.html');
     }
+    echo json_encode($response);
+?>

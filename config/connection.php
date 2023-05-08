@@ -9,4 +9,5 @@
     if($conn->connect_error){
         die("Connessione non riuscita: ".$conn->connect_error);
     }
+    return $conn;
 ?>
